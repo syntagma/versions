@@ -2,10 +2,5 @@
 
 var version = require('../package.json').version;
 
-require('../')
-  .path('../')
-  .lifetime('10 hours')
-  .listen(8081, function (err) {
-    if (err) return this.logger.error('[versions] Failed to start Versions');
-    this.logger.log('[versions] Started versions/'+ version, 'on port 8081');
-  });
+var versions = require('../');
+versions.listen()

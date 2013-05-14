@@ -155,6 +155,10 @@ Sync.prototype.initialize = function initialize() {
         self.set('version', body.version);
       }
 
+      if (body["allowed-versions"]) {
+          self.emit('sync:allowed versions', body['allowed versions'], self.get('allowed versions'));
+          self.set('allowed versions', body['allowed versions']);
+      }
       self.polling = setTimeout(theySeeMePolling, self.interval);
     });
   }
@@ -218,6 +222,53 @@ Sync.prototype.version = function version(number, callback) {
   });
 
   return this;
+};
+
+/**
+ * Add's a new allowed versions on the server.
+ *
+ * @param {Array} allowedVersions New allowed versions to add
+ * @param {Function} callback Continuation
+ * @api public
+ */
+Sync.prototype.allowedVersions = function allowedVersions(allowedVersions, callback) {
+    var self = this;
+
+    callback = callback || function (err) {
+        self.emit('stored:allowed-versions', err);
+    };
+
+    // If we are using redis, it will be pub/subbed over the connection
+    this.set('allowed-versions', allowedVersions);
+    if (this.get('redis')) return this.once('stored:allowed-versions', callback);
+
+    var url = this.server + '/allowed-versions';
+
+    // If we have authorization set, add the correct param so our request doesn't
+    // fail like a mofo.
+    if (this.get('auth')) url += '?auth='+ this.get('auth');
+
+    // Check if we need to prefix the server
+    if (url.charAt(0) === '/') url = 'https:'+ url;
+
+    this.request({
+        uri: url
+        , method: 'PUT'
+        , json: { 'allowed-versions': allowedVersions }
+    }, function requested(err, origin, body) {
+        if (err || origin.statusCode !== 200) {
+            return callback(err || new Error('Invalid Status Code returned'));
+        }
+
+        if ('object' !== typeof body) {
+            try { body = JSON.parse(body); }
+            catch (e) { return callback(new Error('Failed to parse response')); }
+        }
+
+        return callback(undefined, body.version);
+    });
+
+    return this;
 };
 
 /**

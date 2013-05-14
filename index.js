@@ -74,6 +74,14 @@ Versions.prototype.__proto__ = EventEmitter.prototype;
 Versions.prototype.version = require('./package.json').version;
 
 /**
+ * The current running allowed versions of Versions
+ *
+ * @type {Array}
+ * @public
+ */
+Versions.prototype['allowed versions'] = require('./package.json')['allowed versions'];
+
+/**
  * Async helper.
  *
  * @type {Object}
@@ -689,7 +697,7 @@ Versions.prototype.sync = function sync() {
  * @type {Array}
  * @api private
  */
-Versions.prototype.syncing = ['version', 'aliases'];
+Versions.prototype.syncing = ['version', 'aliases', 'allowed versions'];
 
 /**
  * Generate some Redis connections.

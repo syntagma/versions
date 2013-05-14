@@ -488,6 +488,71 @@ Or when no body is send:
 { error: 'Invalid body' }
 ```
 
+#### GET /allowed-versions
+
+Get the versioning allowed versions.
+
+Returns:
+
+```json
+{ 'allowed versions': ['0.0.1','0.2.0'] }
+```
+
+#### POST /version
+
+Override server allowed versions with the allowed versions sent and the current version, if Redis sync is also the changes will
+also be synced with other instances.
+
+Body:
+```json
+{ 'allowed versions': ['0.0.1','0.2.0'] }
+```
+
+Returns:
+
+```js
+{ 'allowed versions': ['0.0.1','0.2.0','0.0.0'] }
+```
+
+Or when no body is send:
+
+```js
+{ error: 'Invalid body' }
+```
+
+#### PUT /version
+
+Add sent allowed versions to the current allowed versions, if Redis sync is also the changes will
+also be synced with other instances.
+
+Body:
+```json
+{ 'allowed versions': ['1.0.1','3.2.1'] }
+```
+
+Returns:
+
+```json
+{ 'allowed versions': ['0.0.1','0.2.0','0.0.0','1.0.1','3.2.1'] }
+```
+
+Or when no body is send:
+
+```js
+{ error: 'Invalid body' }
+```
+
+#### DELETE /version _(Content-type:text/plain)_
+
+Delete every allowed version except for current version, if Redis sync is also the changes will
+also be synced with other instances.
+
+Returns:
+
+```js
+{ 'allowed versions': ['0.0.0'] }
+```
+
 #### GET /metrics
 
 Returns a bunch of metrics.
