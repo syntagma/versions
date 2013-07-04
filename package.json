@@ -1,13 +1,13 @@
 {
-  "name": "versions",
-  "version": "0.1.12-syntagma",
-  "description": "Content Delivery Network",
+  "name": "syntagma-versions",
+  "version": "0.0.2",
+  "description": "Project Forked and Improved from Content Delivery Network",
   "main": "index.js",
   "scripts": {
     "start": "bin/versions",
     "test": "./node_modules/.bin/mocha $(find test -name '*.test.js')"
   },
-  "repository": "https://github.com/3rd-Eden/versions",
+  "repository": "https://github.com/syntagma/versions",
   "keywords": [
     "cdn",
     "content",
@@ -21,7 +21,7 @@
     "versions",
     "versioning"
   ],
-  "author": "Arnout Kazemier",
+  "author": "Matias Liwski",
   "license": "MIT",
   "dependencies": {
     "connect": "2.7.x",
@@ -38,6 +38,6 @@
     "redis": "0.8.x",
     "sinon": "1.6.x",
     "sinon-chai": "2.3.x",
-    "versions": "git://github.com/3rd-Eden/versions.git"
+    "versions": "git://github.com/syntagma/versions.git"
   }
 }

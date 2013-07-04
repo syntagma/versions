@@ -1,4 +1,11 @@
-# versions
+# syntagma-versions
+
+Syntagma/Matias Liwski forked original project to extend functionality.
+If manufacturer accept our new features, we will merge projects.
+For now, is a separate npm module because we need it for our own products.
+
+# Next, original documentation of manufacturer:
+
 
 Versions is a simple but powerful node.js module that allows you to create a
 flexible static server or content delivery network. Serving static assets is a
