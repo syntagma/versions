@@ -82,6 +82,14 @@ Versions.prototype.version = require('./package.json').version;
 Versions.prototype['allowed versions'] = require('./package.json')['allowed versions'];
 
 /**
+ * The current running autoexpired resources of Versions
+ *
+ * @type {Array}
+ * @public
+ */
+Versions.prototype['autoexpired resources'] = require('./package.json')['autoexpired resources'];
+
+/**
  * Async helper.
  *
  * @type {Object}
@@ -334,8 +342,13 @@ Versions.prototype.write = function write(req, res, data) {
     }
   }
 
-  res.setHeader('Expires', new Date(Date.now() + age).toUTCString());
-  res.setHeader('Cache-Control', 'max-age='+ age +', public');
+    if(this.get('autoexpired resources').indexOf(req.url) != -1){
+        res.setHeader('Expires', new Date(Date.now()).toUTCString());
+        res.setHeader('Cache-Control', 'max-age=0, public');
+    } else {
+        res.setHeader('Expires', new Date(Date.now() + age).toUTCString());
+        res.setHeader('Cache-Control', 'max-age='+ age +', public');
+    }
   res.setHeader('Last-Modified', data['last-modified']);
   res.setHeader('Content-Type', data['content-type']);
   res.setHeader('Content-Length', body.length);

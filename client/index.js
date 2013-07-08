@@ -159,6 +159,11 @@ Sync.prototype.initialize = function initialize() {
           self.emit('sync:allowed versions', body['allowed versions'], self.get('allowed versions'));
           self.set('allowed versions', body['allowed versions']);
       }
+
+      if (body["allowed-versions"]) {
+          self.emit('sync:autoexpired resources', body['autoexpired resources'], self.get('autoexpired resources'));
+          self.set('autoexpired resources', body['autoexpired resources']);
+      }
       self.polling = setTimeout(theySeeMePolling, self.interval);
     });
   }

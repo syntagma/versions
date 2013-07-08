@@ -13,5 +13,6 @@
   "port": 8080,
   "sync": false,
   "version": "0.0.0",
-  "allowed versions":["0.0.1", "0.1.2"]
+  "allowed versions":["0.0.1", "0.1.2"],
+  "autoexpired resources":["/"]
 }
