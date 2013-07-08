@@ -1,6 +1,6 @@
 {
   "name": "syntagma-versions",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Project Forked and Improved from Content Delivery Network",
   "main": "index.js",
   "scripts": {
